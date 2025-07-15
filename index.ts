@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { contentRoutes } from './routes/content';
+import { checkJwt } from './utils/auth'; // 🔐 Import middleware
 
 // Load environment variables from .env.backend
 dotenv.config({ path: '.env.backend' });
@@ -14,10 +15,10 @@ const allowedOrigin = process.env.CORS_ORIGIN || '*';
 app.use(cors({ origin: allowedOrigin }));
 app.use(express.json());
 
-// Routes
-app.use('/api/content', contentRoutes);
+// Routes — 🔐 apply JWT check before accessing content routes
+app.use('/api/content', checkJwt, contentRoutes);
 
-// Health check
+// Health check (no auth needed)
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
 });
