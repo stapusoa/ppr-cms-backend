@@ -4,8 +4,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev index.ts",
-    "start": "ts-node index.ts",
+    "dev": "ts-node-dev dist/index.js",
+    "start": "ts-node dist/index.js",
     "build": "tsc"
   },
   "dependencies": {
